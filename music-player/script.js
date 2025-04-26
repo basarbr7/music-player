@@ -4,6 +4,8 @@ const play = document.querySelector(".play")
 const pause = document.querySelector(".pause")
 const songTitle = document.querySelector(".song-title")
 const artistName = document.querySelector(".artist-name")
+const prev = document.querySelector(".prev")
+const next = document.querySelector(".next")
 
 
 const songsItem= [
@@ -31,7 +33,7 @@ const songsItem= [
 
 
 let isMusicPlaying = false
-let songNumber = 0
+let songNumber = 2
 
 function playMusic(){
     music.play()
@@ -56,7 +58,28 @@ updateSongs(songsItem[songNumber])
 
 playbtn.addEventListener("click", ()=>isMusicPlaying ? pauseMusic() : playMusic())
 
-
+prev.addEventListener("click", ()=>{
+    if(songNumber){
+        songNumber -=1
+        updateSongs(songsItem[songNumber])
+        playMusic()
+    }else{
+        songNumber = songsItem.length-1
+        updateSongs(songsItem[songNumber])
+        playMusic()
+    }
+})
+next.addEventListener("click", ()=>{
+    if(songNumber< songsItem.length-1){
+        songNumber +=1
+        updateSongs(songsItem[songNumber])
+        playMusic()
+    }else{
+        songNumber = 0
+        updateSongs(songsItem[songNumber])
+        playMusic()
+    }
+})
 
 
 
