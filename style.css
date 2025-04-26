@@ -58,8 +58,8 @@ body {
 }
 
 .album-art {
-  width: 250px;
-  height: 250px;
+  width: 150px;
+  height: 150px;
   border-radius: 50%;
   overflow: hidden;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
@@ -101,7 +101,6 @@ body {
   flex-direction: column;
   gap: 5px;
   align-items: center;
-  margin-top: 10px;
 }
 
 .song-title {
@@ -119,7 +118,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 10px;
+ 
 }
 
 .control-button {
