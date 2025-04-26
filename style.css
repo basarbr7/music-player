@@ -23,7 +23,7 @@ body {
   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 10px;
 }
 
 .player-header {
@@ -85,6 +85,7 @@ body {
   height: 100%;
   object-fit: cover;
   animation: rotate 20s infinite linear;
+  animation-play-state: paused;
 }
 
 @keyframes rotate {
