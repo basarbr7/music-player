@@ -6,6 +6,12 @@ const songTitle = document.querySelector(".song-title")
 const artistName = document.querySelector(".artist-name")
 const prev = document.querySelector(".prev")
 const next = document.querySelector(".next")
+const totalTime = document.querySelector(".total-time")
+const currentTime = document.querySelector(".current-time")
+const progressBar = document.querySelector(".progress-bar");
+const progress = document.querySelector(".progress");
+const progressDot = document.querySelector(".progress-dot");
+
 
 
 const songsItem= [
@@ -33,7 +39,7 @@ const songsItem= [
 
 
 let isMusicPlaying = false
-let songNumber = 2
+let songNumber = 0
 
 function playMusic(){
     music.play()
@@ -59,32 +65,46 @@ updateSongs(songsItem[songNumber])
 playbtn.addEventListener("click", ()=>isMusicPlaying ? pauseMusic() : playMusic())
 
 prev.addEventListener("click", ()=>{
-    if(songNumber){
-        songNumber -=1
-        updateSongs(songsItem[songNumber])
-        playMusic()
-    }else{
-        songNumber = songsItem.length-1
-        updateSongs(songsItem[songNumber])
-        playMusic()
-    }
+    songNumber = (songNumber-1 + songsItem.length)%songsItem.length
+    updateSongs(songsItem[songNumber])
+    playMusic()
 })
 next.addEventListener("click", ()=>{
-    if(songNumber< songsItem.length-1){
-        songNumber +=1
-        updateSongs(songsItem[songNumber])
-        playMusic()
-    }else{
-        songNumber = 0
-        updateSongs(songsItem[songNumber])
-        playMusic()
-    }
+    songNumber = (songNumber+1) % songsItem.length
+    updateSongs(songsItem[songNumber])
+    playMusic()
+})
+music.addEventListener("ended", ()=>{
+    songNumber = (songNumber+1) % songsItem.length
+    updateSongs(songsItem[songNumber])
+    playMusic()
 })
 
+function timeUpdate(time){
+    const minutes = Math.floor(time/60);
+    const seconds = Math.floor(time%60)
+    return `${minutes} : ${seconds.toString().padStart(2, "0")}`
+}
 
+music.addEventListener("loadedmetadata", () => {
+    totalTime.textContent = timeUpdate(music.duration);
+});
 
+music.addEventListener("timeupdate", () => { 
+    currentTime.textContent = timeUpdate(music.currentTime)
+    const percentage = (music.currentTime / music.duration) * 100;
+    progress.style.width = `${percentage}%`;
+    progressDot.style.left = `${percentage}%`;
+});
 
-
+progressBar.addEventListener("click", (e) => {
+    console.log(e);
+    const width = progressBar.clientWidth;
+    const clickX = e.offsetX;
+    const duration = music.duration;
+    music.currentTime = (clickX / width) * duration;
+    music.currentTime = (clickX / width) * duration;
+});
 
 
 
