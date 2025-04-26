@@ -92,6 +92,7 @@ music.addEventListener("loadedmetadata", () => {
 
 music.addEventListener("timeupdate", () => {
   currentTime.textContent = timeUpdate(music.currentTime);
+  
   const percentage = (music.currentTime / music.duration) * 100;
   progress.style.width = `${percentage}%`;
   progressDot.style.left = `${percentage}%`;
@@ -106,9 +107,11 @@ progressBar.addEventListener("click", (e) => {
   const clickX = e.offsetX;
   const duration = music.duration;
   music.currentTime = (clickX / width) * duration;
-  music.currentTime = (clickX / width) * duration;
 });
-
+progressDot.addEventListener("click", (e) => {
+    e.stopPropagation(); 
+  });
+  
 music.addEventListener("play", () => {
   albumArt.style.animationPlayState = "running";
 });
