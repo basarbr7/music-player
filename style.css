@@ -65,7 +65,7 @@ body {
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
   position: relative;
   margin: 0 auto;
-  animation: pulse 4s infinite ease-in-out;
+  animation: pulse 3s infinite ease-in-out;
 }
 
 @keyframes pulse {
@@ -73,7 +73,7 @@ body {
     box-shadow: 0 0 10px rgba(128, 0, 255, 0.3);
   }
   50% {
-    box-shadow: 0 0 30px rgba(128, 0, 255, 0.7);
+    box-shadow: 0 0 50px rgba(128, 0, 255, 0.7);
   }
   100% {
     box-shadow: 0 0 10px rgba(128, 0, 255, 0.3);
@@ -84,7 +84,7 @@ body {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  animation: rotate 20s infinite linear;
+  animation: rotate 10s infinite linear;
   animation-play-state: paused;
 }
 
@@ -250,10 +250,11 @@ body {
 
 .playlist-item:hover {
   background: rgba(50, 50, 50, 0.6);
-  transform: translateX(5px);
+  transform: translateX(3px);
+  transition: all linear 0.5s;
 }
 
-.playlist-item.active {
+.active {
   background: rgba(157, 78, 221, 0.2);
   border-left: 3px solid #9d4edd;
 }
