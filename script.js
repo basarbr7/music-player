@@ -148,3 +148,12 @@ function updatePlayList(songNumber){
   });
 }
 updatePlayList(songNumber);
+
+playList.forEach((item, index)=>{
+  item.addEventListener("click", ()=>{
+    songNumber = index
+    updateSongs(songsItem[songNumber]);
+    updatePlayList(songNumber)
+    playMusic(); 
+  })
+})
