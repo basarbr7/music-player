@@ -12,9 +12,7 @@ const progressBar = document.querySelector(".progress-bar");
 const progress = document.querySelector(".progress");
 const progressDot = document.querySelector(".progress-dot");
 const albumArt = document.querySelector(".album-art img");
-const playList = document.querySelectorAll(".playlist-item")
-
-
+const playList = document.querySelectorAll(".playlist-item");
 
 const songsItem = [
   {
@@ -70,19 +68,19 @@ playbtn.addEventListener("click", () =>
 prev.addEventListener("click", () => {
   songNumber = (songNumber - 1 + songsItem.length) % songsItem.length;
   updateSongs(songsItem[songNumber]);
-  updatePlayList(songNumber)
+  updatePlayList(songNumber);
   playMusic();
 });
 next.addEventListener("click", () => {
   songNumber = (songNumber + 1) % songsItem.length;
   updateSongs(songsItem[songNumber]);
-  updatePlayList(songNumber)
+  updatePlayList(songNumber);
   playMusic();
 });
 music.addEventListener("ended", () => {
   songNumber = (songNumber + 1) % songsItem.length;
   updateSongs(songsItem[songNumber]);
-  updatePlayList(songNumber)
+  updatePlayList(songNumber);
   playMusic();
 });
 
@@ -98,7 +96,7 @@ music.addEventListener("loadedmetadata", () => {
 
 music.addEventListener("timeupdate", () => {
   currentTime.textContent = timeUpdate(music.currentTime);
-  
+
   const percentage = (music.currentTime / music.duration) * 100;
   progress.style.width = `${percentage}%`;
   progressDot.style.left = `${percentage}%`;
@@ -115,9 +113,9 @@ progressBar.addEventListener("click", (e) => {
   music.currentTime = (clickX / width) * duration;
 });
 progressDot.addEventListener("click", (e) => {
-  e.stopPropagation(); 
+  e.stopPropagation();
 });
-  
+
 music.addEventListener("play", () => {
   albumArt.style.animationPlayState = "running";
 });
@@ -125,20 +123,26 @@ music.addEventListener("pause", () => {
   albumArt.style.animationPlayState = "paused";
 });
 
-function updatePlayList(songNumber){
+function updatePlayList(songNumber) {
   playList.forEach((item, index) => {
-    if(index===songNumber){
-      item.classList.add("active")
-      const newdiv = document.createElement("div")
-      newdiv.classList.add("active-indicator")
 
-      for(let i=0; i<3; i++){
-        const wave = document.createElement("div")
-        wave.classList.add("wave")
-        newdiv.appendChild(wave)
+    const oldDiv = item.querySelector(".active-indicator");
+    if (oldDiv) {
+      oldDiv.remove();
+    }
+    
+    if (index === songNumber) {
+      item.classList.add("active");
+      const newdiv = document.createElement("div");
+      newdiv.classList.add("active-indicator");
+
+      for (let i = 0; i < 3; i++) {
+        const wave = document.createElement("div");
+        wave.classList.add("wave");
+        newdiv.appendChild(wave);
       }
-      item.appendChild(newdiv)
-    }else{
+      item.appendChild(newdiv);
+    } else {
       item.classList.remove("active");
       const oldDiv = item.querySelector(".active-indicator");
       if (oldDiv) {
@@ -149,11 +153,11 @@ function updatePlayList(songNumber){
 }
 updatePlayList(songNumber);
 
-playList.forEach((item, index)=>{
-  item.addEventListener("click", ()=>{
-    songNumber = index
+playList.forEach((item, index) => {
+  item.addEventListener("click", () => {
+    songNumber = index;
     updateSongs(songsItem[songNumber]);
-    updatePlayList(songNumber)
-    playMusic(); 
-  })
-})
+    updatePlayList(songNumber);
+    playMusic();
+  });
+});
